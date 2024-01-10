@@ -1,0 +1,28 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg px-5">
+    <a routerLink="/sistema" class="navbar-brand">
+        <img src="https://d3pagamentos.com.br/assets/img/fav.png" width="30%">
+    </a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" (click)="toggleCollapsed()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+        <ul  class="navbar-nav nav nav-pills">
+            <li class="nav-item text-center" *ngIf="funcao!='CONSULTOR'"><a routerLink="/sistema/armario1" class="nav-link" routerLinkActive="active">Armario 1</a></li>
+            <li class="nav-item text-center" *ngIf="funcao!='CONSULTOR'"><a routerLink="/sistema/armario2" href="#" class="nav-link" routerLinkActive="active">Armario 2</a></li>
+            <li class="nav-item text-center" *ngIf="funcao!='CONSULTOR'"><a routerLink="/sistema/armario3" href="#" class="nav-link" routerLinkActive="active">Armario 3</a></li>
+            <li class="nav-item text-center" *ngIf="funcao!='CONSULTOR'"><a routerLink="/sistema/estoqueAB" href="#" class="nav-link" routerLinkActive="active">Cofre</a></li>
+            <li class="nav-item text-center" *ngIf="funcao!='CONSULTOR'"><a routerLink="/sistema/defeito" href="#" class="nav-link" routerLinkActive="active">Defeito</a></li>
+            <li class="nav-item text-center" *ngIf="funcao!='CONSULTOR'"><a routerLink="/sistema/devolucao" href="#" class="nav-link" routerLinkActive="active">Devolução</a></li>
+            <li class="nav-item text-center"><a routerLink="/sistema/store" href="#" class="nav-link" routerLinkActive="active">Store</a></li>
+            <li class="nav-item text-center"><a routerLink="/sistema/storeDefeito" href="#" class="nav-link" routerLinkActive="active">Store Defeito</a></li>
+            <li class="nav-item text-center"><a routerLink="/sistema/emTransito" href="#" class="nav-link" routerLinkActive="active">Em trânsito</a></li>
+            <li class="nav-item text-center"><a routerLink="/sistema/noCliente" href="#" class="nav-link" routerLinkActive="active">No Cliente</a></li>
+            <li class="nav-item text-center"><a routerLink="/sistema/historico" href="#" class="nav-link" routerLinkActive="active">Histórico</a></li>
+            <li class="nav-item text-center"><a routerLink="/logout" href="#" class="nav-link" routerLinkActive="active">SAIR</a></li>
+        </ul>
+        
+    </div>
+    <img [src]="imagem" alt="" width="2.5%" class="mx-5">
+</nav>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,203 @@
+<ng-template #modalOpcoes>
+  <div class="modal-header">
+    <h5 class="modal-title">Mover maquininha</h5>
+    <button type="button" class="btn btn-danger" (click)="fechaModal()">x</button>
+  </div>
+  <form #form="ngForm" (ngSubmit)="onSubmit1()">
+    <div class="modal-body">
+      <label for="selectOpcoes">Ação que deseja fazer: </label>
+      <select name="opçoes" [(ngModel)]="selectedOpcao" (change)="resetaCampos()" class="form-select"
+        id="selectOpcoes" required>
+        <option selected hidden>Escolha...</option>
+        <option id="moverParaCliente" value="moverParaCliente">
+          Mover para cliente
+        </option>
+        <option id="moverParaDefeitoStore" value="moverParaDefeitoStore">
+          Mover para Store defeito
+        </option>
+        <option id="moverParaEmTransito" value="moverParaEmTransito">
+          Mover para Em Trânsito
+        </option>
+      </select>
+    </div>
+
+    <div class="opcoesEnviarCliente" *ngIf="selectedOpcao == 'moverParaCliente' ">
+      <div class="modal-header">
+        <h5 class="modal-title">Você realmente quer enviar esta maquininha para o cliente?</h5>
+      </div>
+      <div class="modal-body">
+        <label for="inputCNPF">Qual o CNPF do cliente?</label>
+        <input name="cnpfName" type="text" [(ngModel)]="cnpf" class="form-control" id="inputCNPF" mask="CPF_CNPJ" required>
+        <br>
+        <label for="inputEmpresa">Qual a empresa do cliente?</label>
+        <input name="empresaName" type="text" [(ngModel)]="empresa" class="form-control" id="inputEmpresa" required>
+      </div>
+    </div>
+
+    <div class="opcoesEnviarDefeitoStore" *ngIf="selectedOpcao == 'moverParaDefeitoStore'">
+      <div class="modal-header">
+        <h5 class="modal-title">Você realmente quer enviar esta maquininha para Store defeito?</h5>
+      </div>
+      
+    </div>
+
+    <div class="opcoesEnviarEmTransito" id="opcoesEnviarEmTransito" *ngIf="selectedOpcao == 'moverParaEmTransito' ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEnviarEmTransito">Você realmente quer mover para Em Trânsito?</h5>
+      </div>
+      <div class="modal-body">
+        <h6 class="modal-title" class="mb-2">Qual o método de transporte?</h6>
+        <div class="form-check">
+          <input class="form-check-input" name="pessoalmenteName" type="radio" [(ngModel)]="transporte" id="flexRadioDefault1" value="Pessoalmente" required>
+          <label class="form-check-label" for="flexRadioDefault1">
+            Pessoalmente
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" name="correioName" type="radio" id="flexRadioDefault2" [(ngModel)]="transporte" value="Correio" checked required>
+          <label class="form-check-label" for="flexRadioDefault2">
+            Correio
+          </label>
+        </div>
+        <div *ngIf="transporte=='Correio'" class="mt-3">
+          <label for="inputCodigo">Qual o código de rastreio?</label>
+          <input name="codigoName" type="text" [(ngModel)]="codigo" class="form-control" id="inputCodigo" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" id="botaoEnviar" class="btn btn-success" [disabled]="!form.valid">Sim</button>
+      <button type="button" (click)="fechaModal()" class="btn btn-danger">Não</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #modalSolicitacao>
+  <div class="modal-header">
+    <h5 class="modal-title">Quer solicitar mais maquininhas?</h5>
+    <button type="button" class="btn btn-danger" (click)="fechaModal()">x</button>
+  </div>
+  <form #form2="ngForm" (ngSubmit)="onSubmit2()">
+  <div class="modal-body">
+    <label for="maquininha">Qual o modelo de maquininha?</label>
+    <select class="form-select" id="maquininha" [(ngModel)]="modelo" name="maquininhaName" required>
+      <option selected hidden>Escolha...</option>
+      <option value="{{m}}" *ngFor="let m of listaModelos">{{m}}</option>
+    </select>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" class="form-control" id="quantidade" name="quantidadeName" [(ngModel)]="quantidade" required min="1">
+  
+    <div *ngIf="funcao!='CONSULTOR'">
+      <label for="inputStore">Para qual Store enviará a maquininha?</label>
+    <select name="storeName" [(ngModel)]="cidadeStore" class="form-select" id="inputCidadeStore" required>
+      <option selected hidden>Escolha...</option>
+      <option value="{{c}}" *ngFor="let c of cidades">{{c}}</option>
+    </select>
+    </div>
+  </div>
+
+    <div class="modal-footer">
+      <button type="submit" id="botaoSolicitar" class="btn btn-success" [disabled]="!form2.valid">Sim</button>
+      <button type="button" (click)="fechaModal()" class="btn btn-danger" >Não</button>
+    </div>
+  </form>
+</ng-template>
+
+<div class="mt-5 mx-5">
+  <div class="row no-gutters text-center">
+    <div class="col-12 col-lg-8">
+      <table id="tabela-Store" class="table table-striped table-hover text-center">
+        <thead>
+          <tr>
+            <th>Serial</th>
+            <th>Modelo</th>
+            <th>Store</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div *ngIf="groupid=='1'">
+        <table class="table text-center table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Store</th>
+              <th scope="col">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>STORE CAMPO GRANDE</td>
+              <td id="campoGrande">{{cidadesStores.campoGrande}}</td>
+            </tr>
+            <tr>
+              <td>STORE CAMPINAS</td>
+              <td id="cxPatrick">{{cidadesStores.campinas}}</td>
+            </tr>
+            <tr>
+              <td>RIO DE JANEIRO</td>
+              <td id="rioDeJaneiro">{{cidadesStores.rioDeJaneiro}}</td>
+            </tr>
+            <tr>
+              <td>STORE RIO PRETO</td>
+              <td id="rioPreto">{{cidadesStores.rioPreto}}</td>
+            </tr>
+            <tr>
+              <td>STORE SOROCABA</td>
+              <td id="rioPreto">{{cidadesStores.sorocaba}}</td>
+            </tr>
+            <tr>
+              <td><strong>Total Geral</strong></td>
+              <td id="total">{{cidadesStores.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div *ngIf="groupid!='1'">
+        <table class="table table-striped table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col">Modelo</th>
+              <th scope="col">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>D3 - PRO 1</td>
+              <td id="d3Pro1">{{modelos.d3Pro1}}</td>
+            </tr>
+            <tr>
+              <td>D3 - PRO 2</td>
+              <td id="d3Pro2">{{modelos.d3Pro2}}</td>
+            </tr>
+            <tr>
+              <td>D3 - PRO REFURBISHED</td>
+              <td id="d3ProRefurbished">{{modelos.d3ProRefurbished}}</td>
+            </tr>
+            <tr>
+              <td>D3 - SMART</td>
+              <td id="d3Smart">{{modelos.d3Smart}}</td>
+            </tr>
+            <tr>
+              <td>D3 - X</td>
+              <td id="d3X">{{modelos.d3X}}</td>
+            </tr>
+            <tr>
+              <td><strong>Total Geral</strong></td>
+              <td id="total">{{modelos.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-primary mt-5" (click)="abreModal()">Solicitar Maquininhas!</button>
+    </div>
+  </div>
+</div>

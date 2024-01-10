@@ -1,0 +1,25 @@
+<div class="bg-image">
+    <section class="vh-100">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-7 col-lg-5 col-xl-4">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div >
+                                <div>
+                                    <img src="https://s3.amazonaws.com/gupy5/production/companies/764/career/1820/images/2023-01-03_17-53_companyLogoUrl.png" class="img-fluid">
+                                </div>
+                                <div class="text-danger" *ngIf="message"><strong>{{message}}</strong></div>
+                                <div class="text-danger mt-5" *ngIf="error=='401'">
+                                    Sua sessão pode ter expirado ou você não tem acesso a essa página.
+                                </div>
+                                <button  class="btn btn-outline-light btn-lg px-5 mt-5 mx-1" (click)="goHome()" type="submit">Home</button>
+                                <button *ngIf="error=='401'" class="btn btn-outline-light btn-lg px-5 mt-5" routerLink="/login" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

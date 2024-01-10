@@ -1,0 +1,6 @@
+.bg-image {
+    background-image: url('../../../assets/images/D3wallpaper.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }

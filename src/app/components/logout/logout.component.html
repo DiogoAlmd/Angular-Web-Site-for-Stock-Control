@@ -1,0 +1,23 @@
+<div class="bg-image">
+    <section class="vh-100">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-7 col-lg-5 col-xl-4">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div>
+                                <div>
+                                    <img src="https://s3.amazonaws.com/gupy5/production/companies/764/career/1820/images/2023-01-03_17-53_companyLogoUrl.png" class="img-fluid">
+                                </div>
+                                <div class="text-danger"><strong>{{message}}</strong></div>
+                                <button *ngIf="message=='Deseja realmente sair?'" class="btn btn-outline-light btn-lg px-5 mt-5 mx-1" (click)="goBack()" type="submit">Não</button>
+                                <button *ngIf="message=='Deseja realmente sair?'" class="btn btn-outline-light btn-lg px-5 mt-5 mx-1" (click)="sair()" type="submit">Sim</button>
+                                <button *ngIf="message=='Sessão Encerrada!'" class="btn btn-outline-light btn-lg px-5 mt-5 mx-1" (click)="login()" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

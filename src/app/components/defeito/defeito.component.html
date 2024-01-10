@@ -1,0 +1,132 @@
+<ng-template #modalOpcoes>
+    <div class="modal-header">
+      <h5 class="modal-title">Mover maquininha</h5>
+      <button type="button" class="btn btn-danger" (click)="fechaModal()">x</button>
+    </div>
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <label for="selectOpcoes">Ação que deseja fazer: </label>
+              <select name="opçoes" [(ngModel)]="selectedOpcao" (change)="resetaCampos()" class="form-select" id="selectOpcoes" required>
+                <option selected hidden>Escolha...</option>
+                <option id="alterarMotivo" value="alterarMotivo">
+                  Alterar Motivo
+                </option>
+                <option id="moverParaDevolucao" value="moverParaDevolucao">
+                    Mover para Devolução
+                  </option>
+              </select>
+      </div>
+  
+      <div class="opcoesAlterarMotivo" id="opcoesAlterarMotivo" *ngIf="selectedOpcao == 'alterarMotivo' ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEnviarDefeitoLabel">Você realmente quer alterar o motivo do defeito?</h5>
+        </div>
+        <div class="modal-body">
+            <label for="selectCaixaDevolucao">Qual o novo motivo?</label>
+            <select [(ngModel)]="novoMotivo" class="form-select" name="selectCaixaDevolucao" required>
+              <option selected hidden>Escolha...</option>
+              <option id="pedTampered" value="{{d}}" *ngFor="let d of listaDefeitos">{{d}}</option>
+            </select>
+        </div>
+      </div>
+    
+      <div class="opcoesMoverParaDevolucao" id="opcoesMoverParaDevolucao" *ngIf="selectedOpcao == 'moverParaDevolucao' ">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalMoverParaDevolucao">Você realmente quer mover para Devolução?</h5>
+          </div>
+          <div class="modal-body">
+            <label for="selectCaixa">Em qual caixa irá colocar a maquininha?</label>
+            <select name="caixaName" [(ngModel)]="caixa" class="form-select" id="inputCaixa" required>
+              <option selected hidden>Escolha...</option>
+              <option value="{{c}}" *ngFor="let c of listaCaixas">{{c}}</option>
+            </select>
+          </div>
+      </div>
+  
+      <div class="modal-footer">
+        <button type="submit" id="botaoEnviar" class="btn btn-success" [disabled]="!form.valid">Sim</button>
+        <button type="button" (click)="fechaModal()" class="btn btn-danger">Não</button>
+      </div>
+    </form>
+  </ng-template>
+
+<div class="mt-5 mx-5">
+    <div class="row no-gutters text-center">
+      <div class="col-12 col-lg-8">
+        <table id="tabela-defeito" class="table table-striped table-hover text-center">
+          <thead>
+            <tr>
+                <th>Serial</th>
+                <th>Modelo</th>
+                <th>Caixa</th>
+                <th>Motivo</th>
+                <th>Data</th>
+                <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let valor of defeitos">
+              <td>{{ valor.Serial }}</td>
+              <td>{{ valor.Modelo }}</td>
+              <td>{{ valor.Caixa }}</td>
+              <td>{{ valor.Motivo }}</td>
+              <td>{{ valor.Data }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="col-12 col-lg-4">
+        <table class="table text-center table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Motivo</th>
+              <th scope="col">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ped Tampered</td>
+              <td id="d3Pro1">{{motivos.pedTampered}}</td>
+            </tr>
+            <tr>
+              <td>Erro na leitura do cartão</td>
+              <td id="d3Pro2">{{motivos.erroNaLeituraDoCartao}}</td>
+            </tr>
+            <tr>
+              <td>Touch</td>
+              <td id="d3ProRefurbished">{{motivos.touch}}</td>
+            </tr>
+            <tr>
+              <td>Conector com defeito</td>
+              <td id="d3Smart">{{motivos.conectorComDefeito}}</td>
+            </tr>
+            <tr>
+              <td>Conectividade de chips</td>
+              <td id="d3X">{{motivos.conectividadeDeChips}}</td>
+            </tr>
+            <tr>
+                <td>Estética</td>
+                <td id="d3X">{{motivos.estetica}}</td>
+              </tr>
+              <tr>
+                <td>Defeito de Impressão</td>
+                <td id="d3X">{{motivos.defeitoDeImpressao}}</td>
+              </tr>
+              <tr>
+                <td>Teclado</td>
+                <td id="d3X">{{motivos.teclado}}</td>
+              </tr>
+              <tr>
+                <td>Tela Quebrada</td>
+                <td id="d3X">{{motivos.telaQuebrada}}</td>
+              </tr>
+            <tr>
+              <td><strong>Total Geral</strong></td>
+              <td id="total">{{motivos.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

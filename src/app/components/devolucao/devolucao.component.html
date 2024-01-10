@@ -1,0 +1,61 @@
+<div class="mt-5 mx-5">
+  <div class="row no-gutters text-center">
+    <div class="col-12 col-lg-8">
+      <table id="tabela-devolucao" class="table table-striped table-hover text-center">
+        <thead>
+          <tr>
+            <th>Serial</th>
+                <th>Modelo</th>
+                <th>Caixa</th>
+                <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let valor of devolucoes">
+              <td>{{ valor.Serial }}</td>
+              <td>{{ valor.Modelo }}</td>
+              <td>{{ valor.Caixa }}</td>
+              <td>{{ valor.Data }}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <table class="table table-striped table-hover text-center">
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>D3 - PRO 1</td>
+            <td id="d3Pro1">{{modelos.d3Pro1}}</td>
+          </tr>
+          <tr>
+            <td>D3 - PRO 2</td>
+            <td id="d3Pro2">{{modelos.d3Pro2}}</td>
+          </tr>
+          <tr>
+            <td>D3 - PRO REFURBISHED</td>
+            <td id="d3ProRefurbished">{{modelos.d3ProRefurbished}}</td>
+          </tr>
+          <tr>
+            <td>D3 - SMART</td>
+            <td id="d3Smart">{{modelos.d3Smart}}</td>
+          </tr>
+          <tr>
+            <td>D3 - X</td>
+            <td id="d3X">{{modelos.d3X}}</td>
+          </tr>
+          <tr>
+            <td><strong>Total Geral</strong></td>
+            <td id="total">{{modelos.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+export const listaDefeitos = ['Ped Tampered', 'Erro na leitura do cartão', 'Touch', 'Conector com defeito', 'Conectividade de chips', 'Estética', 'Defeito de Impressão', 'Teclado', 'Tela Quebrada']

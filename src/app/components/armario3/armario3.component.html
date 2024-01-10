@@ -1,0 +1,149 @@
+<ng-template #modalOpcoes>
+    <div class="modal-header">
+      <h5 class="modal-title">Mover maquininha</h5>
+      <button type="button" class="btn btn-danger" (click)="fechaModal()">x</button>
+    </div>
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <label for="selectOpcoes">Ação que deseja fazer: </label>
+              <select name="opçoes" [(ngModel)]="selectedOpcao" (change)="resetaCampos()" class="form-select" id="selectOpcoes" required>
+                <option selected hidden>Escolha...</option>
+                <option id="moverParaArmario1" value="moverParaArmario1">
+                  Mover para Armario 1
+                </option>
+                <option id="moverParaDefeito" value="moverParaDefeito">
+                  Mover para defeito
+                </option>
+              </select>
+      </div>
+  
+      <div class="opcoesEnviarArmario1" id="opcoesEnviarArmario1" *ngIf="selectedOpcao == 'moverParaArmario1' ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="opcoesEnviarArmario1">Você realmente quer mover para o Armário 1?</h5>
+        </div>
+        <div class="modal-body">
+          <label for="inputCaixa">Qual a operadora desta maquininha?</label>
+          <select name="operadoraName" [(ngModel)]="operadora" class="form-select" id="inputArmario1" required>
+            <option selected hidden>Escolha...</option>
+            <option id="claro" value="CLARO">
+              CLARO
+            </option>
+            <option id="vivo" value="VIVO">
+              VIVO
+            </option>
+            <option id="na" value="N.A">
+              N.A
+            </option>
+          </select>
+  
+          <br>
+          <br>
+  
+          <label for="inputCaixa">Maquina propria do cliente?</label>
+          <select name="propriedadeName" [(ngModel)]="propriedade" class="form-select" id="inputArmario1" required>
+            <option selected hidden>Escolha...</option>
+            <option id="SIM" value="SIM">
+              SIM
+            </option>
+            <option id="NAO" value="NÃO">
+              NÃO
+            </option>
+          </select>
+        </div>
+      </div>
+    
+      <div class="opcoesEnviarDefeito" id="opcoesEnviarDefeito" *ngIf="selectedOpcao == 'moverParaDefeito' ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEnviarDefeitoLabel">Você realmente quer mover para Defeito?</h5>
+        </div>
+        <div class="modal-body">
+          <label for="inputCaixa">Em qual caixa irá colocar a maquininha?</label>
+          <select name="caixaName" [(ngModel)]="caixa" class="form-select" id="inputCaixa" required>
+            <option selected hidden>Escolha...</option>
+            <option value="{{c}}" *ngFor="let c of listaCaixas">{{c}}</option>
+          </select>
+          <br>
+          <br>
+          <label for="inputMotivo">Qual o motivo do defeito?</label>
+          <select name="motivoName" [(ngModel)]="motivo" class="form-select" id="inputMotivo" required>
+            <option selected hidden>Escolha...</option>
+            <option id="pedTampered" value="{{d}}" *ngFor="let d of listaDefeitos">{{d}}</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="modal-footer">
+        <button type="submit" id="botaoEnviar" class="btn btn-success" [disabled]="!form.valid">Sim</button>
+        <button type="button" (click)="fechaModal()" class="btn btn-danger">Não</button>
+      </div>
+    </form>
+  </ng-template>
+  
+  <div class="mt-5 mx-5">
+    <div class="row no-gutters text-center">
+      <div class="col-12 col-lg-8">
+        <table id="tabela-armario3" class="table table-striped table-hover text-center">
+          <thead>
+            <tr>
+              <th>Serial</th>
+                  <th>Modelo</th>
+                  <th>Status</th>
+                  <th>Situação</th>
+                  <th>Local</th>
+                  <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let valor of armario3">
+              <td>{{ valor.Serial }}</td>
+              <td>{{ valor.Modelo }}</td>
+              <td>{{ valor.Status }}</td>
+              <td>{{ valor.Situacao }}</td>
+              <td>{{ valor.Local }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="col-12 col-lg-4">
+        <table class="table text-center table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Modelo</th>
+              <th scope="col">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>D3 - PRO 1</td>
+              <td id="d3Pro1">{{modelos.d3Pro1}}</td>
+            </tr>
+            <tr>
+              <td>D3 - PRO 2</td>
+              <td id="d3Pro2">{{modelos.d3Pro2}}</td>
+            </tr>
+            <tr>
+              <td>D3 - PRO REFURBISHED</td>
+              <td id="d3ProRefurbished">{{modelos.d3ProRefurbished}}</td>
+            </tr>
+            <tr>
+              <td>D3 - SMART</td>
+              <td id="d3Smart">{{modelos.d3Smart}}</td>
+            </tr>
+            <tr>
+              <td>D3 - TEF</td>
+              <td id="d3TEF">{{modelos.d3TEF}}</td>
+            </tr>
+            <tr>
+              <td><strong>Total Geral</strong></td>
+              <td id="total">{{modelos.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+    
+  
